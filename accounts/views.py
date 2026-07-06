@@ -39,13 +39,20 @@ def lecturer_dashboard(request):
     
     return render(request, 'dashboard/lecturer_dashboard.html')
 
+# def role_redirect(request):
+#     if request.user.role == "lecturer":
+#         return redirect('lecturer_dashboard')
+#     elif request.user.role == "student":
+#         return redirect('student_dashboard')
+#     else:
+#         return redirect('login')
+
+from django.http import HttpResponse
+
 def role_redirect(request):
-    if request.user.role == "lecturer":
-        return redirect('lecturer_dashboard')
-    elif request.user.role == "student":
-        return redirect('student_dashboard')
-    else:
-        return redirect('login')
+    return HttpResponse(
+        f"Login successful! Username: {request.user.username}, Role: {request.user.role}"
+    )
 
 
 class RegisterView(
