@@ -1,0 +1,112 @@
+{% extends "dashboard_base.html" %}
+
+{% block content %}
+
+<div class="page-header">
+
+    <h1>📝 Available Assignments</h1>
+
+    <p>
+        Download assignments posted by your lecturers and submit your work before the deadline.
+    </p>
+
+</div>
+
+{% if assignments %}
+
+<div class="assignment-grid">
+
+    {% for assignment in assignments %}
+
+    <div class="assignment-card">
+
+        <div class="assignment-header">
+
+            <h2>
+
+                {{ assignment.title }}
+
+            </h2>
+
+        </div>
+
+        <div class="assignment-body">
+
+            <p>
+
+                <strong>Course:</strong>
+
+                {{ assignment.course.course_title }}
+
+            </p>
+
+            <p>
+
+                <strong>Course Code:</strong>
+
+                {{ assignment.course.course_code }}
+
+            </p>
+
+            <p>
+
+                <strong>Posted:</strong>
+
+                {{ assignment.created_at|date:"M d, Y g:i A" }}
+
+            </p>
+
+        </div>
+
+        <div class="button-group">
+
+            {% if assignment.file %}
+
+            <a
+                href="{{ assignment.file.url }}"
+                class="btn btn-success"
+                download>
+
+                📥 Download
+
+            </a>
+
+            {% endif %}
+
+            <a
+                href="{% url 'submit_assignment' assignment.pk %}"
+                class="btn btn-primary">
+
+                📤 Submit Assignment
+
+            </a>
+
+        </div>
+
+    </div>
+
+    {% endfor %}
+
+</div>
+
+{% else %}
+
+<div class="empty-state">
+
+    <h2>
+
+        No Assignments Available
+
+    </h2>
+
+    <p>
+
+        Your lecturers haven't posted any assignments yet.
+
+    </p>
+
+</div>
+
+{% endif %}
+
+{% endblock %}

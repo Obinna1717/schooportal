@@ -1,0 +1,121 @@
+{% extends "dashboard_base.html" %}
+
+{% block content %}
+
+<div class="page-header">
+
+    <h1>📋 Attendance Records</h1>
+
+    <p>
+        View attendance records for all recorded classes.
+    </p>
+
+</div>
+
+{% if attendance %}
+
+<div class="table-container">
+
+    <table class="portal-table">
+
+        <thead>
+
+            <tr>
+
+                <th>Date</th>
+
+                <th>Course</th>
+
+                <th>Student</th>
+
+                <th>Matric Number</th>
+
+                <th>Status</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            {% for record in attendance %}
+
+            <tr>
+
+                <td>
+
+                    {{ record.date|date:"M d, Y" }}
+
+                </td>
+
+                <td>
+
+                    {{ record.course.course_title }}
+
+                </td>
+
+                <td>
+
+                    {{ record.student.full_name }}
+
+                </td>
+
+                <td>
+
+                    {{ record.student.matric_number }}
+
+                </td>
+
+                <td>
+
+                    {% if record.present %}
+
+                        <span class="badge badge-success">
+
+                            ✅ Present
+
+                        </span>
+
+                    {% else %}
+
+                        <span class="badge badge-danger">
+
+                            ❌ Absent
+
+                        </span>
+
+                    {% endif %}
+
+                </td>
+
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+{% else %}
+
+<div class="empty-state">
+
+    <h2>
+
+        No Attendance Records
+
+    </h2>
+
+    <p>
+
+        Attendance has not been recorded yet.
+
+    </p>
+
+</div>
+
+{% endif %}
+
+{% endblock %}

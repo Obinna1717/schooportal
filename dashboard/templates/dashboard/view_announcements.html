@@ -1,0 +1,89 @@
+{% extends "student_dashboard_base.html" %}
+
+{% block content %}
+
+<div class="page-header">
+
+    <h1>📢 Announcements</h1>
+
+    <p>
+        Stay updated with the latest announcements from your lecturers.
+    </p>
+
+</div>
+
+{% if announcements %}
+
+<div class="announcement-grid">
+
+    {% for announcement in announcements %}
+
+    <div class="announcement-card">
+
+        <div class="announcement-icon">
+            📢
+        </div>
+
+        <h3>
+
+            {{ announcement.title }}
+
+        </h3>
+
+        <p>
+
+            {{ announcement.content }}
+
+        </p>
+
+        <div class="announcement-footer">
+
+            {% if announcement.course %}
+
+                <span>
+
+                    📚 {{ announcement.course.course_code }}
+
+                </span>
+
+            {% endif %}
+
+            {% if announcement.created_at %}
+
+                <span>
+
+                    🕒 {{ announcement.created_at|date:"M d, Y g:i A" }}
+
+                </span>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+    {% endfor %}
+
+</div>
+
+{% else %}
+
+<div class="empty-state">
+
+    <h2>
+
+        No Announcements
+
+    </h2>
+
+    <p>
+
+        There are no announcements available at the moment.
+
+    </p>
+
+</div>
+
+{% endif %}
+
+{% endblock %}

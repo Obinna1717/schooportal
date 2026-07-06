@@ -1,0 +1,47 @@
+{% extends "dashboard_base.html" %}
+
+{% block content %}
+
+<div class="page-header">
+
+    <h1>✏️ Edit Course Material</h1>
+
+    <p>
+        Update the details or replace the uploaded course material.
+    </p>
+
+</div>
+
+<div class="form-card">
+
+    <form method="POST" enctype="multipart/form-data">
+
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <div class="form-actions">
+
+            <button
+                type="submit"
+                class="btn btn-primary">
+
+                💾 Save Changes
+
+            </button>
+
+            <a
+                href="{% url 'lecturer_dashboard' %}"
+                class="btn btn-secondary">
+
+                ← Cancel
+
+            </a>
+
+        </div>
+
+    </form>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,193 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>School Portal</title>
+
+    <link rel="stylesheet"
+          href="{% static 'css/style.css' %}">
+
+</head>
+
+<body>
+
+<header class="header">
+
+    <nav class="navbar">
+
+        <a href="#" class="logo">
+            🎓 School Portal
+        </a>
+
+        <div class="menu-toggle" id="menuToggle">
+
+            ☰
+
+        </div>
+
+        <ul class="nav-menu" id="navMenu">
+
+            {% if request.user.role == "lecturer" %}
+
+                <li>
+                    <a href="{% url 'lecturer_dashboard' %}">
+                        Dashboard
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{% url 'course_list' %}">
+                        Courses
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{% url 'upload_material' %}">
+                        Materials
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{% url 'post_assignment' %}">
+                        Assignments
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{% url 'view_submissions' %}">
+                        Submissions
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{% url 'select_attendance_course' %}">
+                        Attendance
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{% url 'attendance_records' %}">
+                        Records
+                    </a>
+                </li>
+
+            {% endif %}
+
+            {% if request.user.role == "student" %}
+
+                <li>
+                    <a href="{% url 'student_dashboard' %}">
+                        Dashboard
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{% url 'course_list' %}">
+                        Courses
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{% url 'student_assignments' %}">
+                        Assignments
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{% url 'my_submitted_assignment' %}">
+                        My Submissions
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{% url 'student_attendance' %}">
+                        Attendance
+                    </a>
+                </li>
+
+            {% endif %}
+
+            <li>
+
+                <a href="{% url 'payment_history' %}">
+                    Payments
+                </a>
+
+            </li>
+
+            <li>
+
+                <a href="{% url 'result_list' %}">
+                    Results
+                </a>
+
+            </li>
+
+            <li>
+
+                <a href="{% url 'profile' %}">
+                    Profile
+                </a>
+
+            </li>
+
+            <li>
+
+                <form action="{% url 'logout' %}"
+                      method="post">
+
+                    {% csrf_token %}
+
+                    <button
+                        class="logout-btn"
+                        type="submit">
+
+                        Logout
+
+                    </button>
+
+                </form>
+
+            </li>
+
+        </ul>
+
+    </nav>
+
+</header>
+
+<main class="main-container">
+
+    {% block content %}
+
+    {% endblock %}
+
+</main>
+
+<script>
+
+const menuToggle = document.getElementById("menuToggle");
+
+const navMenu = document.getElementById("navMenu");
+
+menuToggle.addEventListener("click", function(){
+
+    navMenu.classList.toggle("show");
+
+});
+
+
+
+</script>
+
+</body>
+
+</html>

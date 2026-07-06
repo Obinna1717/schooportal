@@ -1,0 +1,138 @@
+{% extends "dashboard_base.html" %}
+
+{% block content %}
+
+<div class="page-header">
+
+    <h1>📤 My Submitted Assignments</h1>
+
+    <p>
+        View, download, edit, or delete your submitted assignments.
+    </p>
+
+</div>
+
+{% if submissions %}
+
+<div class="table-container">
+
+    <table class="portal-table">
+
+        <thead>
+
+            <tr>
+
+                <th>Assignment</th>
+
+                <th>Course</th>
+
+                <th>Submitted On</th>
+
+                <th>File</th>
+
+                <th>Actions</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            {% for sub in submissions %}
+
+            <tr>
+
+                <td>
+
+                    {{ sub.assignment.title }}
+
+                </td>
+
+                <td>
+
+                    {{ sub.course.course_title }}
+
+                </td>
+
+                <td>
+
+                    {{ sub.submitted_at|date:"M d, Y g:i A" }}
+
+                </td>
+
+                <td>
+
+                    <a
+                        href="{{ sub.file.url }}"
+                        class="btn btn-success"
+                        download>
+
+                        📥 Download
+
+                    </a>
+
+                </td>
+
+                <td>
+
+                    <div class="table-actions">
+
+                        <a
+                            href="{% url 'edit_submission' sub.pk %}"
+                            class="btn btn-primary">
+
+                            ✏ Edit
+
+                        </a>
+
+                        <a
+                            href="{% url 'delete_submission' sub.pk %}"
+                            class="btn btn-danger">
+
+                            🗑 Delete
+
+                        </a>
+
+                    </div>
+
+                </td>
+
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+{% else %}
+
+<div class="empty-state">
+
+    <h2>
+
+        No Submitted Assignments
+
+    </h2>
+
+    <p>
+
+        You haven't submitted any assignments yet.
+
+    </p>
+
+    <a
+        href="{% url 'student_assignments' %}"
+        class="btn btn-primary">
+
+        View Assignments
+
+    </a>
+
+</div>
+
+{% endif %}
+
+{% endblock %}

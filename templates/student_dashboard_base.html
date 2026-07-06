@@ -1,0 +1,201 @@
+{% extends "dashboard_base.html" %}
+
+{% block content %}
+
+<div class="page-header">
+
+    <h1>🎓 Student Dashboard</h1>
+
+    <p>
+        Welcome back,
+        <strong>{{ request.user.username }}</strong>
+    </p>
+
+</div>
+
+<!-- Quick Actions -->
+
+<h2 class="section-title">
+    Quick Actions
+</h2>
+
+<div class="card-grid">
+
+    <a href="{% url 'course_list' %}" class="dashboard-card">
+
+        <div class="card-icon">
+            📚
+        </div>
+
+        <h3>Courses</h3>
+
+        <p>
+            View and register courses.
+        </p>
+
+    </a>
+
+    <a href="{% url 'student_assignments' %}" class="dashboard-card">
+
+        <div class="card-icon">
+            📝
+        </div>
+
+        <h3>Assignments</h3>
+
+        <p>
+            Download and submit assignments.
+        </p>
+
+    </a>
+
+    <a href="{% url 'my_submitted_assignment' %}" class="dashboard-card">
+
+        <div class="card-icon">
+            📤
+        </div>
+
+        <h3>My Submissions</h3>
+
+        <p>
+            Edit or delete submitted assignments.
+        </p>
+
+    </a>
+
+    <a href="{% url 'student_attendance' %}" class="dashboard-card">
+
+        <div class="card-icon">
+            ✅
+        </div>
+
+        <h3>Attendance</h3>
+
+        <p>
+            View your attendance summary.
+        </p>
+
+    </a>
+
+    <a href="{% url 'result_list' %}" class="dashboard-card">
+
+        <div class="card-icon">
+            📊
+        </div>
+
+        <h3>Results</h3>
+
+        <p>
+            Check your academic results.
+        </p>
+
+    </a>
+
+    <a href="{% url 'payment_history' %}" class="dashboard-card">
+
+        <div class="card-icon">
+            💳
+        </div>
+
+        <h3>Payments</h3>
+
+        <p>
+            View payment history.
+        </p>
+
+    </a>
+
+    <a href="{% url 'profile' %}" class="dashboard-card">
+
+        <div class="card-icon">
+            👤
+        </div>
+
+        <h3>Profile</h3>
+
+        <p>
+            Update your personal information.
+        </p>
+
+    </a>
+
+</div>
+
+<!-- Course Materials -->
+
+<h2 class="section-title">
+
+    Available Course Materials
+
+</h2>
+
+{% if materials %}
+
+<div class="material-grid">
+
+    {% for item in materials %}
+
+    <div class="material-card">
+
+        <h3>
+
+            {{ item.title }}
+
+        </h3>
+
+        <p>
+
+            <strong>Course:</strong>
+
+            {{ item.course.course_title }}
+
+        </p>
+
+        <p>
+
+            <strong>Uploaded:</strong>
+
+            {{ item.uploaded_at|date:"M d, Y g:i A" }}
+
+        </p>
+
+        {% if item.file %}
+
+        <a
+            href="{{ item.file.url }}"
+            class="btn btn-success"
+            download>
+
+            Download Material
+
+        </a>
+
+        {% endif %}
+
+    </div>
+
+    {% endfor %}
+
+</div>
+
+{% else %}
+
+<div class="empty-state">
+
+    <h3>
+
+        No Course Materials
+
+    </h3>
+
+    <p>
+
+        Your lecturers haven't uploaded any materials yet.
+
+    </p>
+
+</div>
+
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,133 @@
+{% extends "dashboard_base.html" %}
+
+{% block content %}
+
+<div class="page-header">
+
+    <h1>💳 Payment History</h1>
+
+    <p>
+        View all tuition and school fee payment records.
+    </p>
+
+</div>
+
+{% if payments %}
+
+<div class="table-container">
+
+    <table class="portal-table">
+
+        <thead>
+
+            <tr>
+
+                <th>Reference</th>
+
+                <th>Amount</th>
+
+                <th>Status</th>
+
+                <th>Date</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            {% for payment in payments %}
+
+            <tr>
+
+                <td>
+
+                    <strong>
+
+                        {{ payment.reference }}
+
+                    </strong>
+
+                </td>
+
+                <td>
+
+                    ₦{{ payment.amount }}
+
+                </td>
+
+                <td>
+
+                    {% if payment.status|lower == "paid" %}
+
+                        <span class="badge badge-success">
+
+                            ✅ Paid
+
+                        </span>
+
+                    {% elif payment.status|lower == "pending" %}
+
+                        <span class="badge badge-warning">
+
+                            ⏳ Pending
+
+                        </span>
+
+                    {% elif payment.status|lower == "failed" %}
+
+                        <span class="badge badge-danger">
+
+                            ❌ Failed
+
+                        </span>
+
+                    {% else %}
+
+                        <span class="badge badge-primary">
+
+                            {{ payment.status }}
+
+                        </span>
+
+                    {% endif %}
+
+                </td>
+
+                <td>
+
+                    {{ payment.paid_at|date:"M d, Y g:i A" }}
+
+                </td>
+
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+{% else %}
+
+<div class="empty-state">
+
+    <h2>
+
+        No Payment Records
+
+    </h2>
+
+    <p>
+
+        You haven't made any payments yet.
+
+    </p>
+
+</div>
+
+{% endif %}
+
+{% endblock %}

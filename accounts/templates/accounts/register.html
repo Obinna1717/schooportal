@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2 class="auth-title">
+    Create Account
+</h2>
+
+<form method="post" class="portal-form">
+
+    {% csrf_token %}
+
+    {{ form.as_p }}
+
+    <button type="submit" class="btn btn-primary btn-full">
+        Register
+    </button>
+
+</form>
+
+<div class="auth-footer">
+
+    <p>
+        Already have an account?
+    </p>
+
+    <a href="{% url 'login' %}" class="auth-link">
+        Login Here
+    </a>
+
+</div>
+
+{% endblock %}

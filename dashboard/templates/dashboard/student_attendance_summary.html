@@ -1,0 +1,133 @@
+{% extends "dashboard_base.html" %}
+
+{% block content %}
+
+<div class="page-header">
+
+    <h1>📅 My Attendance Summary</h1>
+
+    <p>
+        Monitor your attendance across all registered courses.
+    </p>
+
+</div>
+
+{% if attendance %}
+
+<div class="table-container">
+
+    <table class="portal-table">
+
+        <thead>
+
+            <tr>
+
+                <th>Course</th>
+                <th>Total Classes</th>
+                <th>Present</th>
+                <th>Absent</th>
+                <th>Attendance</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            {% for item in attendance %}
+
+            <tr>
+
+                <td>
+
+                    <strong>{{ item.course__course_code }}</strong>
+
+                    <br>
+
+                    {{ item.course__course_title }}
+
+                </td>
+
+                <td>
+
+                    {{ item.total }}
+
+                </td>
+
+                <td>
+
+                    <span class="badge badge-success">
+
+                        {{ item.present }}
+
+                    </span>
+
+                </td>
+
+                <td>
+
+                    <span class="badge badge-danger">
+
+                        {{ item.absent }}
+
+                    </span>
+
+                </td>
+
+                <td>
+
+                    {% if item.percentage >= 75 %}
+
+                        <span class="badge badge-success">
+
+                            {{ item.percentage }}%
+
+                        </span>
+
+                    {% elif item.percentage >= 50 %}
+
+                        <span class="badge badge-warning">
+
+                            {{ item.percentage }}%
+
+                        </span>
+
+                    {% else %}
+
+                        <span class="badge badge-danger">
+
+                            {{ item.percentage }}%
+
+                        </span>
+
+                    {% endif %}
+
+                </td>
+
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+{% else %}
+
+<div class="empty-state">
+
+    <h2>No Attendance Available</h2>
+
+    <p>
+
+        Your lecturers have not recorded attendance yet.
+
+    </p>
+
+</div>
+
+{% endif %}
+
+{% endblock %}

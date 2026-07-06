@@ -1,0 +1,185 @@
+{% extends "dashboard_base.html" %}
+
+{% block content %}
+
+<div class="page-header">
+
+    <h1>👨‍🏫 Lecturer Dashboard</h1>
+
+    <p>
+        Welcome back,
+        <strong>{{ request.user.username }}</strong>
+    </p>
+
+</div>
+
+<!-- Quick Actions -->
+
+<h2 class="section-title">
+    Quick Actions
+</h2>
+
+<div class="card-grid">
+
+    <a href="{% url 'upload_material' %}" class="dashboard-card">
+
+        <div class="card-icon">📚</div>
+
+        <h3>Upload Materials</h3>
+
+        <p>
+            Upload lecture notes and course materials.
+        </p>
+
+    </a>
+
+    <a href="{% url 'post_assignment' %}" class="dashboard-card">
+
+        <div class="card-icon">📝</div>
+
+        <h3>Post Assignment</h3>
+
+        <p>
+            Create assignments for students.
+        </p>
+
+    </a>
+
+    <a href="{% url 'view_submissions' %}" class="dashboard-card">
+
+        <div class="card-icon">📂</div>
+
+        <h3>Student Submissions</h3>
+
+        <p>
+            View and download submitted assignments.
+        </p>
+
+    </a>
+
+    <a href="{% url 'post_announcement' %}" class="dashboard-card">
+
+        <div class="card-icon">📢</div>
+
+        <h3>Announcements</h3>
+
+        <p>
+            Notify students about important updates.
+        </p>
+
+    </a>
+
+    <a href="{% url 'select_attendance_course' %}" class="dashboard-card">
+
+        <div class="card-icon">✅</div>
+
+        <h3>Attendance</h3>
+
+        <p>
+            Take attendance for your courses.
+        </p>
+
+    </a>
+
+    <a href="{% url 'attendance_records' %}" class="dashboard-card">
+
+        <div class="card-icon">📋</div>
+
+        <h3>Attendance Records</h3>
+
+        <p>
+            View previously recorded attendance.
+        </p>
+
+    </a>
+
+</div>
+
+<!-- Uploaded Materials -->
+
+<h2 class="section-title">
+    My Uploaded Materials
+</h2>
+
+{% if materials %}
+
+<div class="material-grid">
+
+    {% for item in materials %}
+
+    <div class="material-card">
+
+        <h3>{{ item.title }}</h3>
+
+        <p>
+
+            <strong>Course:</strong>
+
+            {{ item.course.course_title }}
+
+        </p>
+
+        <p>
+
+            <strong>Uploaded:</strong>
+
+            {{ item.uploaded_at|date:"M d, Y g:i A" }}
+
+        </p>
+
+        <div class="button-group">
+
+            <a
+                href="{{ item.file.url }}"
+                class="btn btn-success"
+                download>
+
+                Download
+
+            </a>
+
+            <a
+                href="{% url 'edit_material' item.pk %}"
+                class="btn btn-primary">
+
+                Edit
+
+            </a>
+
+            <a
+                href="{% url 'delete_material' item.pk %}"
+                class="btn btn-danger">
+
+                Delete
+
+            </a>
+
+        </div>
+
+    </div>
+
+    {% endfor %}
+
+</div>
+
+{% else %}
+
+<div class="empty-state">
+
+    <h3>
+
+        No Course Materials
+
+    </h3>
+
+    <p>
+
+        You haven't uploaded any course materials yet.
+
+    </p>
+
+</div>
+
+{% endif %}
+
+{% endblock %}

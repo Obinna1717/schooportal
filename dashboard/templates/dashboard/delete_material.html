@@ -1,0 +1,61 @@
+{% extends "dashboard_base.html" %}
+
+{% block content %}
+
+<div class="page-header">
+
+    <h1>🗑 Delete Course Material</h1>
+
+    <p>
+        This action cannot be undone.
+    </p>
+
+</div>
+
+<div class="confirm-card">
+
+    <div class="warning-icon">
+        ⚠️
+    </div>
+
+    <h2>
+        Are you sure?
+    </h2>
+
+    <p>
+
+        You are about to permanently delete
+
+        <strong>"{{ object.title }}"</strong>
+
+    </p>
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+        <div class="form-actions">
+
+            <button
+                type="submit"
+                class="btn btn-danger">
+
+                🗑 Delete Material
+
+            </button>
+
+            <a
+                href="{% url 'lecturer_dashboard' %}"
+                class="btn btn-secondary">
+
+                Cancel
+
+            </a>
+
+        </div>
+
+    </form>
+
+</div>
+
+{% endblock %}

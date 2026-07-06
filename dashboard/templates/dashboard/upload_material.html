@@ -1,0 +1,43 @@
+{% extends "dashboard_base.html" %}
+
+{% block content %}
+
+<div class="page-header">
+
+    <h1>📚 Upload Course Material</h1>
+
+    <p>
+        Upload lecture notes, PDFs, slides, and other learning resources for your students.
+    </p>
+
+</div>
+
+<div class="form-card">
+
+    <form method="POST" enctype="multipart/form-data">
+
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <div class="form-actions">
+
+            <button type="submit" class="btn btn-primary">
+
+                📤 Upload Material
+
+            </button>
+
+            <a href="{% url 'lecturer_dashboard' %}" class="btn btn-secondary">
+
+                ← Back to Dashboard
+
+            </a>
+
+        </div>
+
+    </form>
+
+</div>
+
+{% endblock %}

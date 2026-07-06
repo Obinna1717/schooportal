@@ -1,0 +1,135 @@
+{% extends "dashboard_base.html" %}
+
+{% block content %}
+
+<div class="page-header">
+
+    <h1>📚 Available Courses</h1>
+
+    <p>
+        Browse all available courses.
+    </p>
+
+</div>
+
+{% if request.user.role == "lecturer" %}
+
+<div class="page-actions">
+
+    <a href="{% url 'course_add' %}" class="btn btn-primary">
+        ➕ Add New Course
+    </a>
+
+</div>
+
+{% endif %}
+
+{% if courses %}
+
+<div class="course-grid">
+
+    {% for course in courses %}
+
+    <div class="course-card">
+
+        <div class="course-header">
+
+            <h2>{{ course.course_code }}</h2>
+
+            <span class="badge">
+                {{ course.units }} Units
+            </span>
+
+        </div>
+
+        <div class="course-body">
+
+            <h3>{{ course.course_title }}</h3>
+
+            <p>
+
+                <strong>Department:</strong>
+
+                {{ course.department }}
+
+            </p>
+
+            <p>
+
+                <strong>Semester:</strong>
+
+                {{ course.semester }}
+
+            </p>
+
+        </div>
+
+        <div class="course-footer">
+
+            {% if request.user.role == "lecturer" %}
+
+                <a href="{% url 'course_update' course.pk %}"
+                   class="btn btn-primary">
+
+                    ✏ Edit
+
+                </a>
+
+                <a href="{% url 'course_delete' course.pk %}"
+                   class="btn btn-danger">
+
+                    🗑 Delete
+
+                </a>
+
+            {% endif %}
+
+            {% if request.user.role == "student" %}
+
+                <a href="{% url 'register_course' course.pk %}"
+                   class="btn btn-success">
+
+                    ✅ Register Course
+
+                </a>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+    {% endfor %}
+
+</div>
+
+{% else %}
+
+<div class="empty-state">
+
+    <h3>No Courses Available</h3>
+
+    <p>
+        There are currently no courses available.
+    </p>
+
+</div>
+
+{% endif %}
+
+{% if request.user.role == "student" %}
+
+<div class="page-actions">
+
+    <a href="{% url 'my_courses' %}"
+       class="btn btn-secondary">
+
+        📖 My Registered Courses
+
+    </a>
+
+</div>
+
+{% endif %}
+
+{% endblock %}

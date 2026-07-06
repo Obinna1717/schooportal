@@ -1,0 +1,120 @@
+{% extends "dashboard_base.html" %}
+
+{% block content %}
+
+<div class="page-header">
+
+    <h1>📂 Student Assignment Submissions</h1>
+
+    <p>
+        Review, download, and manage assignments submitted by students.
+    </p>
+
+</div>
+
+{% if submissions %}
+
+<div class="table-container">
+
+    <table class="portal-table">
+
+        <thead>
+
+            <tr>
+
+                <th>Assignment</th>
+
+                <th>Student</th>
+
+                <th>Matric Number</th>
+
+                <th>Course</th>
+
+                <th>Submitted On</th>
+
+                <th>Download</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            {% for submission in submissions %}
+
+            <tr>
+
+                <td>
+
+                    {{ submission.assignment.title }}
+
+                </td>
+
+                <td>
+
+                    {{ submission.student.full_name }}
+
+                </td>
+
+                <td>
+
+                    {{ submission.student.matric_number }}
+
+                </td>
+
+                <td>
+
+                    {{ submission.course.course_title }}
+
+                </td>
+
+                <td>
+
+                    {{ submission.submitted_at|date:"M d, Y g:i A" }}
+
+                </td>
+
+                <td>
+
+                    <a
+                        href="{{ submission.file.url }}"
+                        class="btn btn-success"
+                        download>
+
+                        📥 Download
+
+                    </a>
+
+                </td>
+
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+{% else %}
+
+<div class="empty-state">
+
+    <h2>
+
+        No Assignment Submissions
+
+    </h2>
+
+    <p>
+
+        Students have not submitted any assignments yet.
+
+    </p>
+
+</div>
+
+{% endif %}
+
+{% endblock %}

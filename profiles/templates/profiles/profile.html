@@ -1,0 +1,121 @@
+{% extends "dashboard_base.html" %}
+
+{% block content %}
+
+<div class="page-header">
+
+    <h1>👤 My Profile</h1>
+
+    <p>
+        View and manage your personal information.
+    </p>
+
+</div>
+
+<div class="profile-card">
+
+    <div class="profile-avatar">
+
+        {% comment %} {{ request.user.username|first|upper }} {% endcomment %}
+
+    </div>
+
+    <div class="profile-details">
+
+        <div class="profile-row">
+
+            <span class="profile-label">
+
+                Username :
+
+            </span>
+
+            <span class="profile-value">
+
+                <strong>{{ request.user.username }}</strong>
+
+            </span>
+
+        </div>
+
+        <div class="profile-row">
+
+            <span class="profile-label">
+
+                Registration Number :
+
+            </span>
+
+            <span class="profile-value">
+
+                <strong>{{ profile.registration_number }}</strong>
+
+            </span>
+
+        </div>
+
+        <div class="profile-row">
+
+            <span class="profile-label">
+
+                Department :
+
+            </span>
+
+            <span class="profile-value">
+
+                <strong>{{ profile.department }}</strong>
+
+            </span>
+
+        </div>
+
+        <div class="profile-row">
+
+            <span class="profile-label">
+
+                Level :
+
+            </span>
+
+            <span class="profile-value">
+
+                <strong>{{ profile.level }}</strong>
+
+            </span>
+
+        </div>
+
+        <div class="profile-row">
+
+            <span class="profile-label">
+
+                Sex :
+
+            </span>
+
+            <span class="profile-value">
+
+               <strong>{{ profile.sex }}</strong>
+
+            </span>
+
+        </div>
+
+    </div>
+
+    <div class="form-actions">
+
+        <a
+            href="{% url 'edit_profile' %}"
+            class="btn btn-primary">
+
+            ✏️ Edit Profile
+
+        </a>
+
+    </div>
+
+</div>
+
+{% endblock %}

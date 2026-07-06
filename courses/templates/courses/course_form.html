@@ -1,0 +1,59 @@
+{% extends "dashboard_base.html" %}
+
+{% block content %}
+
+<div class="page-header">
+
+    {% if form.instance.pk %}
+
+        <h1>✏️ Edit Course</h1>
+
+        <p>
+            Update the course information below.
+        </p>
+
+    {% else %}
+
+        <h1>➕ Add New Course</h1>
+
+        <p>
+            Create a new course for your department.
+        </p>
+
+    {% endif %}
+
+</div>
+
+<div class="form-card">
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <div class="form-actions">
+
+            <button
+                type="submit"
+                class="btn btn-primary">
+
+                💾 Save Course
+
+            </button>
+
+            <a
+                href="{% url 'course_list' %}"
+                class="btn btn-secondary">
+
+                ← Back to Courses
+
+            </a>
+
+        </div>
+
+    </form>
+
+</div>
+
+{% endblock %}

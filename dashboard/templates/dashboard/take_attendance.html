@@ -1,0 +1,135 @@
+{% extends "dashboard_base.html" %}
+
+{% block content %}
+
+<div class="page-header">
+
+    <h1>✅ Take Attendance</h1>
+
+    <p>
+        Course: <strong>{{ course.course_code }} - {{ course.course_title }}</strong>
+    </p>
+
+</div>
+
+{% if registrations %}
+
+<div class="table-container">
+
+<form method="POST">
+
+    {% csrf_token %}
+
+    <table class="portal-table">
+
+        <thead>
+
+            <tr>
+
+                <th>#</th>
+
+                <th>Present</th>
+
+                <th>Student Name</th>
+
+                <th>Matric Number</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+        {% for reg in registrations %}
+
+            <tr>
+
+                <td>
+
+                    {{ forloop.counter }}
+
+                </td>
+
+                <td>
+
+                    <input
+                        type="checkbox"
+                        name="students"
+                        value="{{ reg.student.id }}"
+                        checked>
+
+                </td>
+
+                <td>
+
+                    {{ reg.student.full_name }}
+
+                </td>
+
+                <td>
+
+                    {{ reg.student.matric_number }}
+
+                </td>
+
+            </tr>
+
+        {% endfor %}
+
+        </tbody>
+
+    </table>
+
+    <div class="form-actions">
+
+        <button
+            type="submit"
+            class="btn btn-success">
+
+            💾 Save Attendance
+
+        </button>
+
+        <a
+            href="{% url 'select_attendance_course' %}"
+            class="btn btn-secondary">
+
+            ← Change Course
+
+        </a>
+
+    </div>
+
+</form>
+
+</div>
+
+{% else %}
+
+<div class="empty-state">
+
+    <h2>
+
+        No Students Registered
+
+    </h2>
+
+    <p>
+
+        There are no students registered for this course.
+
+    </p>
+
+    <a
+        href="{% url 'select_attendance_course' %}"
+        class="btn btn-primary">
+
+        Back
+
+    </a>
+
+</div>
+
+{% endif %}
+
+{% endblock %}
