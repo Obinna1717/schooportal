@@ -34,8 +34,8 @@ DEBUG = os.environ.get("DEBUG", "True") == "True"
 
 ALLOWED_HOSTS = [
     ".onrender.com",
-    "127.0.0.1",
     "localhost",
+    "127.0.0.1",
 ]
 
 
@@ -135,9 +135,11 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 AUTH_USER_MODEL = 'accounts.User'
 
-from pathlib import Path
+
 
 # BASE_DIR = Path(__file__).resolve().parent.parent
 
