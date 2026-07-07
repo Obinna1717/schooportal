@@ -33,9 +33,10 @@ SECRET_KEY = os.environ.get(
 DEBUG = os.environ.get("DEBUG", "True") == "True"
 
 ALLOWED_HOSTS = [
-    ".onrender.com",
-    "localhost",
     "127.0.0.1",
+    "localhost",
+    ".onrender.com",
+    ".up.railway.app",
 ]
 
 
