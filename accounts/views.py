@@ -12,41 +12,33 @@ from courses.models import CourseMaterial
 @login_required
 @user_passes_test(is_student)
 def student_dashboard(request):
+    student = request.user.student
+    courses = Registration.objects.filter(student=student).values_list("course", flat=True)
+    materials = CourseMaterial.objects.filter(course__in=courses)
 
-    materials = CourseMaterial.objects.all()
+    return render(request, "dashboard/student_dashboard.html", {
+        "materials": materials
+    })
 
-    return render(
-        request,
-        'dashboard/student_dashboard.html',
-        {
-            'materials': materials
-        }
-    )
 
 @login_required
 @user_passes_test(is_lecturer)
 def lecturer_dashboard(request):
-    
-    materials = CourseMaterial.objects.all()
+    lecturer = request.user.lecturer
+    materials = CourseMaterial.objects.filter(uploaded_by=lecturer)
 
-    return render(
-        request,
-        'dashboard/lecturer_dashboard.html',
-        {
-            'materials': materials
-        }
-    )
-    
-    return render(request, 'dashboard/lecturer_dashboard.html')
+    return render(request, "dashboard/lecturer_dashboard.html", {
+        "materials": materials
+    })
 
+
+@login_required
 def role_redirect(request):
     if request.user.role == "lecturer":
-        return redirect('lecturer_dashboard')
+        return redirect("lecturer_dashboard")
     elif request.user.role == "student":
-        return redirect('student_dashboard')
-    else:
-        return redirect('login')
-
+        return redirect("student_dashboard")
+    return redirect("login")
 
 class RegisterView(
     CreateView
