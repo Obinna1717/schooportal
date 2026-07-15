@@ -39,11 +39,26 @@ ALLOWED_HOSTS = [
     ".up.railway.app",
 ]
 
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = os.environ.get("DEBUG", "False") == "True"
+
+ALLOWED_HOSTS = [
+    "127.0.0.1",
+    "localhost",
+    ".onrender.com",
+    ".up.railway.app",
+]
+
 CSRF_TRUSTED_ORIGINS = [
-    "https://YOUR-APP.up.railway.app",
+    "https://schooportal-production.up.railway.app",
+]
+
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
-]
+
+
+# Application definition
+
 
 
 # Application definition
