@@ -30,13 +30,19 @@ SECRET_KEY = os.environ.get(
 )
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get("DEBUG", "False") == "False"
+DEBUG = os.environ.get("DEBUG", "False") == "True"
 
 ALLOWED_HOSTS = [
     "127.0.0.1",
     "localhost",
     ".onrender.com",
     ".up.railway.app",
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://YOUR-APP.up.railway.app",
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
 ]
 
 
